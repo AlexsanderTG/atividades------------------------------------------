@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Produtos</title>
+</head>
+<body>
+    <h2>Listar Produtos</h2>
+    <ul id="lista-produtos"></ul>
+    <script>
+        fetch('/listar')
+            .then(response => response.json())
+            .then(data => {
+                const listaProdutos = document.getElementById('lista-produtos');
+                data.forEach(produto => {
+                    const item = document.createElement('li');
+                    item.textContent = `ID: ${produto.id}, Nome: ${produto.nome}, Quantidade: ${produto.qtd}`;
+                    listaProdutos.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Erro ao listar produtos:', error));
+    </script>
+</body>
+</html>
