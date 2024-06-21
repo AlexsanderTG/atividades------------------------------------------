@@ -1,20 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
+from flask_bcrypt import Bcrypt
 
-
-
-# Configuração do aplicativo Flask
 app = Flask(__name__)
-# Configuração da chave secreta para sessões
-app.config['SECRET_KEY'] = 'Zhiend'
-# Configuração do banco de dados SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:admin@localhost/jogoteca'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config.from_pyfile('config.py', "rb")
+app.config.from_pyfile('config.py')
 
 db = SQLAlchemy(app)
-from views import *
+csrf = CSRFProtect(app)
+bcrypt = Bcrypt(app)
 
-# Executando o aplicativo Flask
+from views_game import *
+from views_user import *
+
 if __name__ == '__main__':
     app.run(debug=True)
