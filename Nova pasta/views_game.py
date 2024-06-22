@@ -7,7 +7,7 @@ import time
 
 @app.route('/')
 def index():
-    lista = Jogos.query.order_by(Jogos.id)
+    lista = Jogos.query.order_by(Jogos.id).all()
     capas = {jogo.id: recupera_imagem(jogo.id) for jogo in lista}
     return render_template('lista.html', titulo='Jogos', capas=capas, jogos=lista)
 

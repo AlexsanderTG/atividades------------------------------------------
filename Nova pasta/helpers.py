@@ -2,6 +2,7 @@ import os
 from jogoteca import app
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, validators
+from wtforms.validators import DataRequired, Length
 
 class FormularioJogo(FlaskForm):
     nome = StringField('Nome do Jogo', [validators.DataRequired(), validators.Length(min=1, max=50)])
@@ -25,3 +26,18 @@ def deleta_arquivo(id):
     arquivo = recupera_imagem(id)
     if arquivo != 'capa_padrao.jpg':
         os.remove(os.path.join(app.config['UPLOAD_PATH']), arquivo)
+
+
+
+
+class FormularioRegistro(FlaskForm):
+    nickname = StringField('Nickname', validators=[DataRequired(), Length(min=1, max=8)])
+    nome = StringField('Nome', validators=[DataRequired(), Length(min=1, max=20)])
+    senha = PasswordField('Senha', validators=[DataRequired(), Length(min=1, max=100)])
+    submit = SubmitField('Registrar')
+
+
+class FormularioEdicaoUsuario(FlaskForm):
+    nome = StringField('Nome', validators=[DataRequired(), Length(min=1, max=20)])
+    senha = PasswordField('Senha', validators=[Length(min=0, max=100)])
+    salvar = SubmitField('Salvar')

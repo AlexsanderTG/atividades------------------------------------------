@@ -13,7 +13,7 @@ class Jogos(db.Model):
 class Usuarios(db.Model):
     nickname = db.Column(db.String(8), primary_key=True)
     nome = db.Column(db.String(20), nullable=False)
-    senha = db.Column(db.String(100), nullable=False)
+    senha = db.Column(db.String(255), nullable=False)  # Garanta que a coluna 'senha' tenha 255 caracteres
 
     def __repr__(self):
-        return '<Name %r>' % self.name
+        return '<Name %r>' % self.nome
